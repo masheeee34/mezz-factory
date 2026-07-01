@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la ~/.claude/ 2>/dev/null)",
+      "Bash(find / -maxdepth 6 -iname \"*claude*\" -type d 2>/dev/null | grep -v \"/c/Users/Aymane/Desktop\" | grep -v \"/c/Users/Aymane/.claude\")",
+      "Bash(gh api *)",
+      "Bash(git --version)",
+      "Bash(mkdir -p ~/.claude/skills && ls ~/.claude/skills)",
+      "Bash(node -e \"const fs=require\\('fs'\\); const j=JSON.parse\\(fs.readFileSync\\(process.env.USERPROFILE+'/.claude.json','utf8'\\)\\); console.log\\(Object.keys\\(j\\)\\)\")",
+      "Bash(mv playwright-skill/skills/playwright-skill ./playwright-skill-tmp)",
+      "Bash(rm -rf playwright-skill)",
+      "Bash(mv playwright-skill-tmp *)",
+      "Bash(grep -rl '\\\\.\\\\./\\\\.\\\\./' --include=SKILL.md .)",
+      "Bash(grep -n '\\\\.\\\\./\\\\.\\\\./' -A2 -B2 ~/.claude/skills/yara-rule-authoring/SKILL.md)",
+      "Read(//tmp/skill_inspect/**)",
+      "Bash(head -40 README.md)",
+      "Bash(ls -la)",
+      "Bash(ls -la \"C:/Users/Aymane/Desktop/pro-stats-analytics\")"
+    ]
+  }
+}

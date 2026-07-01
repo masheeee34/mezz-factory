@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+/*
+ * Brand font "Road Rage" (used on the jersey).
+ * Drop the file at public/fonts/RoadRage.woff2 (or .ttf) and it takes over
+ * automatically. If absent, headings gracefully fall back to Anton.
+ */
+@font-face {
+  font-family: "Road Rage";
+  src:
+    local("Road Rage"),
+    url("/fonts/RoadRage.woff2") format("woff2"),
+    url("/fonts/RoadRage.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pink Blue";
+  src:
+    local("Pink Blue"),
+    url("/fonts/PinkBlue.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Another Danger";
+  src: url("/fonts/AnotherDanger.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-bg: #0a0a0b;
+  --color-surface: #121214;
+  --color-surface-2: #18181b;
+  --color-line: #2a2a2e;
+  --color-red: #c8101d;
+  --color-red-bright: #e11d2a;
+  --color-text: #f4f4f5;
+  --color-muted: #9a9aa0;
+
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: "Road Rage", var(--font-anton), Impact, sans-serif;
+  --font-number: var(--font-anton), Impact, sans-serif;
+
+  --shadow-glow: 0 0 40px -8px rgba(225, 29, 42, 0.55);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+  }
+
+  /* Plain black background (client request) — lets the jersey stand out. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(120% 90% at 50% 0%, #0d0d0f 0%, #070708 55%, #040405 100%);
+  }
+
+  ::selection {
+    background: var(--color-red);
+    color: white;
+  }
+}
+
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 0.92;
+}
+
+/* Slight torn/brush feel for headings without needing the real font. */
+@utility headline {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+}
+
+/* Custom range slider thumb for the configurator (used if needed). */
+@layer components {
+  .red-divider {
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-red-bright) 20%,
+      var(--color-red-bright) 80%,
+      transparent
+    );
+  }
+}
