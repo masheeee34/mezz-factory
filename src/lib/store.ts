@@ -54,3 +54,57 @@ export const useConfigurator = create<ConfiguratorState>((set) => ({
   setQuantity: (quantity) => set({ quantity: Math.max(1, Math.min(10, quantity)) }),
   addToCart: () => set((s) => ({ cartCount: s.cartCount + s.quantity })),
 }));
+
+/* ─── persistent reviews store ─── */
+import { persist } from "zustand/middleware";
+
+export interface Review {
+  id: string;
+  name: string;
+  rating: number;
+  comment: string;
+  date: string;
+  customization?: string;
+}
+
+interface ReviewsState {
+  reviews: Review[];
+  addReview: (review: Review) => void;
+}
+
+export const useReviewsStore = create<ReviewsState>()(
+  persist(
+    (set) => ({
+      reviews: [
+        {
+          id: "1",
+          name: "SOFIANE K.",
+          rating: 5,
+          comment: "Franchement incroyable. Le tissu est super épais, la coupe tombe parfaitement. Le floquage Road Rage est ultra propre.",
+          date: "Il y a 2 jours",
+          customization: "Taille L · FLOQUAGE: SOFIANE 95"
+        },
+        {
+          id: "2",
+          name: "LUCAS M.",
+          rating: 5,
+          comment: "Reçu en 4 jours. La bande rouge peinte et le gris dégradé sur le nom rendent trop bien en vrai.",
+          date: "Il y a 5 jours",
+          customization: "Taille XL · FLOQUAGE: LUCAS 10"
+        },
+        {
+          id: "3",
+          name: "YASMINA B.",
+          rating: 5,
+          comment: "Qualité streetwear lourde. L'effet usé sur les chiffres est ultra détaillé. Je recommande fort.",
+          date: "Il y a 1 semaine",
+          customization: "Taille S"
+        }
+      ],
+      addReview: (review) => set((s) => ({ reviews: [review, ...s.reviews] })),
+    }),
+    {
+      name: "mezz-reviews-storage",
+    }
+  )
+);

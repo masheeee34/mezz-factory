@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { PRODUCT, formatEUR } from "@/lib/product";
-import { useConfigurator } from "@/lib/store";
+import { useConfigurator, useReviewsStore } from "@/lib/store";
 import type { OrderPayload } from "@/lib/types";
 
 const schema = z.object({
@@ -46,6 +46,12 @@ export default function OrderForm() {
   const [addressSuggestions, setAddressSuggestions] = useState<AddressSuggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [loadingAddress, setLoadingAddress] = useState(false);
+
+  const addReview = useReviewsStore((s) => s.addReview);
+  const [reviewRating, setReviewRating] = useState(5);
+  const [reviewComment, setReviewComment] = useState("");
+  const [reviewName, setReviewName] = useState("");
+  const [reviewSubmitted, setReviewSubmitted] = useState(false);
 
   const handleCopyIBAN = () => {
     navigator.clipboard.writeText("FR7628233000019641984280730");
@@ -112,6 +118,10 @@ export default function OrderForm() {
       const data = (await res.json()) as { ok: boolean; orderId?: string; error?: string };
       if (!res.ok || !data.ok) throw new Error(data.error ?? "Erreur serveur");
       setSubmitted(data.orderId ?? "OK");
+      setReviewName(`${values.firstName} ${values.lastName[0]}.`.toUpperCase());
+      setReviewComment("");
+      setReviewRating(5);
+      setReviewSubmitted(false);
       setAddressQuery("");
       reset();
     } catch (err) {
@@ -211,6 +221,86 @@ export default function OrderForm() {
               <span className="font-bold text-red-bright">⚠️ IMPORTANT :</span> Indique impérativement la référence <span className="font-mono text-text font-bold">{submitted}</span> en libellé de ton paiement pour valider la production.
             </p>
           </div>
+        </div>
+
+        {/* Ligne de séparation fine */}
+        <div className="my-8 border-t border-line/30" />
+
+        {/* Section Laisser un avis client */}
+        <div className="text-left space-y-4">
+          <h4 className="text-xs font-black uppercase tracking-[0.25em] text-muted text-center">
+            Laisse un avis sur ton maillot
+          </h4>
+          
+          {reviewSubmitted ? (
+            <div className="text-center py-4 text-sm text-green-500 font-bold uppercase tracking-wider">
+              ✓ Merci pour ton avis ! Il est maintenant affiché sur la page d&apos;accueil.
+            </div>
+          ) : (
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              if (!reviewComment.trim()) return;
+              addReview({
+                id: Math.random().toString(36).substring(2, 9),
+                name: reviewName.trim() || "ANONYME",
+                rating: reviewRating,
+                comment: reviewComment.trim(),
+                date: "À l'instant",
+                customization: `Taille ${size}` + (floquage.name ? ` · FLOQUAGE: ${floquage.name} ${floquage.number}` : "")
+              });
+              setReviewSubmitted(true);
+            }} className="space-y-4">
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                {/* Name */}
+                <div className="w-full sm:flex-1">
+                  <label className="block text-[10px] uppercase tracking-wider text-muted mb-1 font-bold">Ton nom d&apos;affichage</label>
+                  <input
+                    type="text"
+                    value={reviewName}
+                    onChange={(e) => setReviewName(e.target.value)}
+                    className={inputCls}
+                    placeholder="Ex: SOFIANE K."
+                    required
+                  />
+                </div>
+                {/* Star rating selector */}
+                <div className="w-full sm:w-auto">
+                  <span className="block text-[10px] uppercase tracking-wider text-muted mb-1 font-bold text-center sm:text-left">Ta note</span>
+                  <div className="flex justify-center gap-1.5 text-xl text-red-bright">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setReviewRating(star)}
+                        className="transition hover:scale-110"
+                      >
+                        {star <= reviewRating ? "★" : "☆"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              {/* Comment */}
+              <div>
+                <label className="block text-[10px] uppercase tracking-wider text-muted mb-1 font-bold">Ton commentaire</label>
+                <textarea
+                  value={reviewComment}
+                  onChange={(e) => setReviewComment(e.target.value)}
+                  rows={3}
+                  className={`${inputCls} resize-none`}
+                  placeholder="Qualité du tissu, coupe, flocage... dis-nous tout !"
+                  required
+                />
+              </div>
+              {/* Submit */}
+              <button
+                type="submit"
+                className="w-full rounded-lg bg-red-bright py-3 text-xs font-bold uppercase tracking-widest text-white transition hover:bg-red"
+              >
+                Poster mon avis
+              </button>
+            </form>
+          )}
         </div>
 
         {/* Ligne de séparation fine */}
