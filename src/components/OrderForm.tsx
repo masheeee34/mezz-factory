@@ -50,8 +50,6 @@ export default function OrderForm() {
   const addReview = useReviewsStore((s) => s.addReview);
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewComment, setReviewComment] = useState("");
-  const [reviewName, setReviewName] = useState("");
-  const [reviewSubmitted, setReviewSubmitted] = useState(false);
 
   const handleCopyIBAN = () => {
     navigator.clipboard.writeText("FR7628233000019641984280730");
@@ -131,10 +129,8 @@ export default function OrderForm() {
       }
 
       setSubmitted(data.orderId ?? "OK");
-      setReviewName(`${values.firstName} ${values.lastName[0]}.`.toUpperCase());
       setReviewComment("");
       setReviewRating(5);
-      setReviewSubmitted(false);
       setAddressQuery("");
       reset();
     } catch (err) {
