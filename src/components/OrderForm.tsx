@@ -261,7 +261,7 @@ export default function OrderForm() {
                 onFocus={() => setShowSuggestions(addressSuggestions.length > 0)}
                 onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                 className={`${inputCls} pr-10`}
-                autoComplete="off"
+                autoComplete="one-time-code"
                 placeholder="Entrez votre numéro et nom de rue..."
               />
               {loadingAddress && (
