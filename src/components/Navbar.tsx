@@ -35,12 +35,12 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-4 sm:px-6">
-        <a href={isHome ? "#accueil" : "/"} className="block" style={{ marginTop: "-14px", marginBottom: "-14px" }}>
+        <a href={isHome ? "#accueil" : "/"} className="block">
           <img
             src="/new-logo.png"
             alt="Mezz'"
             style={{
-              height: "110px",
+              height: "76px",
               width: "auto",
               display: "block",
               mixBlendMode: "lighten",
