@@ -117,6 +117,19 @@ export default function OrderForm() {
       });
       const data = (await res.json()) as { ok: boolean; orderId?: string; error?: string };
       if (!res.ok || !data.ok) throw new Error(data.error ?? "Erreur serveur");
+      
+      // Auto-submit review if comment is entered
+      if (reviewComment.trim()) {
+        addReview({
+          id: Math.random().toString(36).substring(2, 9),
+          name: `${values.firstName} ${values.lastName[0]}.`.toUpperCase(),
+          rating: reviewRating,
+          comment: reviewComment.trim(),
+          date: "À l'instant",
+          customization: `Taille ${size}` + (floquage.name ? ` · FLOQUAGE: ${floquage.name} ${floquage.number}` : "")
+        });
+      }
+
       setSubmitted(data.orderId ?? "OK");
       setReviewName(`${values.firstName} ${values.lastName[0]}.`.toUpperCase());
       setReviewComment("");
@@ -226,86 +239,6 @@ export default function OrderForm() {
         {/* Ligne de séparation fine */}
         <div className="my-8 border-t border-line/30" />
 
-        {/* Section Laisser un avis client */}
-        <div className="text-left space-y-4">
-          <h4 className="text-xs font-black uppercase tracking-[0.25em] text-muted text-center">
-            Laisse un avis sur ton maillot
-          </h4>
-          
-          {reviewSubmitted ? (
-            <div className="text-center py-4 text-sm text-green-500 font-bold uppercase tracking-wider">
-              ✓ Merci pour ton avis ! Il est maintenant affiché sur la page d&apos;accueil.
-            </div>
-          ) : (
-            <form onSubmit={(e) => {
-              e.preventDefault();
-              if (!reviewComment.trim()) return;
-              addReview({
-                id: Math.random().toString(36).substring(2, 9),
-                name: reviewName.trim() || "ANONYME",
-                rating: reviewRating,
-                comment: reviewComment.trim(),
-                date: "À l'instant",
-                customization: `Taille ${size}` + (floquage.name ? ` · FLOQUAGE: ${floquage.name} ${floquage.number}` : "")
-              });
-              setReviewSubmitted(true);
-            }} className="space-y-4">
-              <div className="flex flex-col sm:flex-row items-center gap-4">
-                {/* Name */}
-                <div className="w-full sm:flex-1">
-                  <label className="block text-[10px] uppercase tracking-wider text-muted mb-1 font-bold">Ton nom d&apos;affichage</label>
-                  <input
-                    type="text"
-                    value={reviewName}
-                    onChange={(e) => setReviewName(e.target.value)}
-                    className={inputCls}
-                    placeholder="Ex: SOFIANE K."
-                    required
-                  />
-                </div>
-                {/* Star rating selector */}
-                <div className="w-full sm:w-auto">
-                  <span className="block text-[10px] uppercase tracking-wider text-muted mb-1 font-bold text-center sm:text-left">Ta note</span>
-                  <div className="flex justify-center gap-1.5 text-xl text-red-bright">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <button
-                        key={star}
-                        type="button"
-                        onClick={() => setReviewRating(star)}
-                        className="transition hover:scale-110"
-                      >
-                        {star <= reviewRating ? "★" : "☆"}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-              {/* Comment */}
-              <div>
-                <label className="block text-[10px] uppercase tracking-wider text-muted mb-1 font-bold">Ton commentaire</label>
-                <textarea
-                  value={reviewComment}
-                  onChange={(e) => setReviewComment(e.target.value)}
-                  rows={3}
-                  className={`${inputCls} resize-none`}
-                  placeholder="Qualité du tissu, coupe, flocage... dis-nous tout !"
-                  required
-                />
-              </div>
-              {/* Submit */}
-              <button
-                type="submit"
-                className="w-full rounded-lg bg-red-bright py-3 text-xs font-bold uppercase tracking-widest text-white transition hover:bg-red"
-              >
-                Poster mon avis
-              </button>
-            </form>
-          )}
-        </div>
-
-        {/* Ligne de séparation fine */}
-        <div className="my-8 border-t border-line/30" />
-
         <div className="flex justify-center">
           <button
             type="button"
@@ -387,6 +320,34 @@ export default function OrderForm() {
           )}
         </div>
 
+        {/* Section Avis Intégrée (Streetwear Design) */}
+        <div className="border-t border-line/30 pt-6 mt-4 space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted">
+              Laisse ton avis sur le maillot (Optionnel)
+            </span>
+            <div className="flex gap-1 text-lg text-red-bright">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button
+                  key={star}
+                  type="button"
+                  onClick={() => setReviewRating(star)}
+                  className="transition hover:scale-110"
+                >
+                  {star <= reviewRating ? "★" : "☆"}
+                </button>
+              ))}
+            </div>
+          </div>
+          <textarea
+            value={reviewComment}
+            onChange={(e) => setReviewComment(e.target.value)}
+            rows={2}
+            className={`${inputCls} resize-none`}
+            placeholder="Qualité du tissu, coupe, flocage... donne ton avis !"
+          />
+        </div>
+
         {serverError && (
           <p className="text-sm text-red-bright">{serverError}</p>
         )}
@@ -394,7 +355,7 @@ export default function OrderForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="headline mt-2 rounded-xl bg-red-bright px-8 py-3.5 text-xl text-white shadow-glow transition hover:bg-red disabled:opacity-60"
+          className="headline mt-4 rounded-xl bg-red-bright px-8 py-3.5 text-xl text-white shadow-glow transition hover:bg-red disabled:opacity-60"
         >
           {isSubmitting ? "Envoi…" : "Valider la commande"}
         </button>
