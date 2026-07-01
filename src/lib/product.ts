@@ -2,7 +2,7 @@ import type { Product } from "@/lib/types";
 
 /**
  * Single product for the landing page.
- * Swap these values / images to reuse the template for another jersey.
+ * Swap these values / images to reuse the template for another jersey. (Vercel Trigger)
  */
 export const PRODUCT: Product = {
   id: "mezz-190",
