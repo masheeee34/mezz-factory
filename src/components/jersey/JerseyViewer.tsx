@@ -52,9 +52,8 @@ export default function JerseyViewer() {
         {activeTab === "verso" && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div 
-              className="relative h-full" 
+              className="relative w-full h-auto sm:h-full sm:w-auto aspect-[2304/1844]" 
               style={{ 
-                aspectRatio: "2304/1844",
                 containerType: "size"
               }}
             >
@@ -62,7 +61,7 @@ export default function JerseyViewer() {
               <img
                 src="/jersey/client.png"
                 alt="Template maillot"
-                className="h-full w-auto object-contain"
+                className="w-full h-auto sm:h-full sm:w-auto object-contain"
                 style={{ filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.9))" }}
               />
               {deferredFloquage.name?.trim() && (

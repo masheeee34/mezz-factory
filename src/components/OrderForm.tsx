@@ -251,8 +251,8 @@ export default function OrderForm() {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
-      {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4" noValidate>
+      {/* Form — Appears second on mobile, first on desktop */}
+      <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4 order-2 lg:order-1" noValidate>
         <div className="grid gap-4 sm:grid-cols-2">
           <Field label="Prénom" error={errors.firstName?.message}>
             <input {...register("firstName")} className={inputCls} autoComplete="given-name" />
@@ -358,8 +358,8 @@ export default function OrderForm() {
         </button>
       </form>
 
-      {/* Recap */}
-      <aside className="h-fit rounded-xl bg-surface/40 p-5 backdrop-blur-sm">
+      {/* Recap — Appears first on mobile, second on desktop */}
+      <aside className="h-fit rounded-xl bg-surface/40 p-5 backdrop-blur-sm order-1 lg:order-2">
         <h3 className="mb-4 text-sm font-semibold uppercase tracking-wide">
           Récapitulatif
         </h3>
@@ -385,7 +385,7 @@ export default function OrderForm() {
 }
 
 const inputCls =
-  "w-full rounded-lg border border-line bg-bg px-3 py-2.5 text-sm outline-none transition focus:border-red-bright";
+  "w-full rounded-lg border border-line bg-bg px-3 py-2.5 text-base lg:text-sm outline-none transition focus:border-red-bright";
 
 function Field({
   label,
