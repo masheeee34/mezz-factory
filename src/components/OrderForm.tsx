@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { z } from "zod";
 import { PRODUCT, formatEUR } from "@/lib/product";
 import { useConfigurator, useReviewsStore } from "@/lib/store";
@@ -236,13 +237,13 @@ export default function OrderForm() {
         <div className="my-8 border-t border-line/30" />
 
         <div className="flex justify-center">
-          <button
-            type="button"
+          <Link
+            href="/"
             onClick={() => setSubmitted(null)}
             className="rounded-lg border border-line/40 px-8 py-3 text-xs font-bold uppercase tracking-widest text-muted transition hover:border-text hover:text-text"
           >
             Retour boutique
-          </button>
+          </Link>
         </div>
       </div>
     );
