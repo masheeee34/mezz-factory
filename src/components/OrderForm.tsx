@@ -102,7 +102,7 @@ export default function OrderForm() {
                 <span className="text-xs font-bold uppercase tracking-wider text-red-bright">Option 1</span>
                 <h5 className="mt-1 text-sm font-semibold text-text">Lien instantané Revolut</h5>
                 <p className="mt-2 text-xs text-muted leading-relaxed">
-                  Payez de manière sécurisée en un clic via l'application Revolut ou par carte.
+                  Payez de manière sécurisée en un clic via l&apos;application Revolut ou par carte.
                 </p>
               </div>
               <a
@@ -121,7 +121,7 @@ export default function OrderForm() {
                 <span className="text-xs font-bold uppercase tracking-wider text-red-bright">Option 2</span>
                 <h5 className="mt-1 text-sm font-semibold text-text">Virement Bancaire</h5>
                 <p className="mt-2 text-xs text-muted leading-relaxed">
-                  Effectuez un virement classique. L'IBAN (RIB) est disponible ci-dessous.
+                  Effectuez un virement classique. L&apos;IBAN (RIB) est disponible ci-dessous.
                 </p>
                 <div className="mt-3 rounded bg-black/40 p-2 text-center font-mono text-xs text-text border border-line/20 select-all">
                   FR76 2823 3000 0196 4198 4280 730
