@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useConfigurator } from "@/lib/store";
+import { usePathname } from "next/navigation";
 
 const LINKS = [
   { href: "#accueil", label: "ACCUEIL" },
@@ -13,6 +14,8 @@ const LINKS = [
 export default function Navbar() {
   const cartCount = useConfigurator((s) => s.cartCount);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -20,6 +23,8 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const getHref = (hash: string) => (isHome ? hash : `/${hash}`);
 
   return (
     <header
@@ -30,7 +35,7 @@ export default function Navbar() {
       }`}
     >
       <nav className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-4 sm:px-6">
-        <a href="#accueil" className="block" style={{ marginTop: "-14px", marginBottom: "-14px" }}>
+        <a href={isHome ? "#accueil" : "/"} className="block" style={{ marginTop: "-14px", marginBottom: "-14px" }}>
           <img
             src="/new-logo.png"
             alt="Mezz'"
@@ -47,7 +52,7 @@ export default function Navbar() {
           {LINKS.map((l) => (
             <li key={l.href}>
               <a
-                href={l.href}
+                href={getHref(l.href)}
                 className="text-sm font-medium uppercase tracking-wide text-muted transition-colors hover:text-text"
               >
                 {l.label}
@@ -57,11 +62,11 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-4">
-          <a href="#commander" aria-label="Mon compte" className="text-muted hover:text-text">
+          <a href="/commande" aria-label="Mon compte" className="text-muted hover:text-text">
             <UserIcon />
           </a>
           <a
-            href="#commander"
+            href="/commande"
             aria-label="Panier"
             className="relative text-muted hover:text-text"
           >

@@ -3,7 +3,6 @@ import JerseyViewer from "@/components/jersey/JerseyViewer";
 import ProductPanel from "@/components/ProductPanel";
 import Gallery from "@/components/Gallery";
 import FeatureBar from "@/components/FeatureBar";
-import OrderForm from "@/components/OrderForm";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -34,12 +33,6 @@ export default function Home() {
         <section id="galerie" className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
           <SectionHeading kicker="Le shooting" title="Galerie" />
           <Gallery />
-        </section>
-
-        {/* Commander */}
-        <section id="commander" className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
-          <SectionHeading kicker="Passe ta commande" title="Commander" />
-          <OrderForm />
         </section>
       </main>
 

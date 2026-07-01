@@ -6,12 +6,15 @@ import FloquageControls from "@/components/FloquageControls";
 import SizeSelector from "@/components/SizeSelector";
 import QuantityStepper from "@/components/QuantityStepper";
 
+import { useRouter } from "next/navigation";
+
 export default function ProductPanel() {
   const addToCart = useConfigurator((s) => s.addToCart);
+  const router = useRouter();
 
   const handleAdd = () => {
     addToCart();
-    document.getElementById("commander")?.scrollIntoView({ behavior: "smooth" });
+    router.push("/commande");
   };
 
   return (

@@ -148,10 +148,12 @@ export default function OrderForm() {
               <div>
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-black uppercase tracking-widest text-red-bright bg-red-bright/10 px-2 py-0.5 rounded">Option 1</span>
-                  {/* Real Revolut Logo */}
-                  <svg className="text-white" width="60" height="14" viewBox="0 0 450 100" fill="currentColor">
-                    <path d="M38.5 0h17.1v97.9H38.5V0zM116.7 39.5c.3-11.4 8.7-18.7 20.3-18.7 11.2 0 19.3 7 19.9 17.5l.3 1.2h-40.5zm40.5 13.9c-.8 13-9.5 21.6-21.7 21.6-11.5 0-20.1-7.8-20.1-20.8 0-13 8.6-20.8 20.1-20.8 11.4 0 19.6 7.4 20.4 19.6v.4h17.1c-.9-21.3-16.7-33.9-37.5-33.9-22 0-37.3 15-37.3 34.7s15.3 34.7 37.3 34.7c20.5 0 36.4-12.2 37.5-33.9h-17.1c-.2 7.7-1.3 11-3.2 13.1zM286.9 23.2V8.4H270v71c0 10.9 6.8 17 18 17 4.1 0 7.8-.5 10.8-1.5V79.6c-2.3.8-4.9 1.1-7.4 1.1-4.7 0-7.3-2.6-7.3-7.7V23.2h17.9zM207.2 23.2l-21.8 55-21.8-55h-18.4l31.1 74.7H195l31.1-74.7h-18.9zM368.1 23.2h-17.1v40.3c0 9.8-5.3 14.5-12.7 14.5s-12.6-4.7-12.6-14.5V23.2h-17.1v41.6c0 19.2 11.9 29.5 29.7 29.5 9.7 0 17.5-4 21.1-10.2l1.6 8.8h17.1V23.2zM73.5 44c11.9 0 19.9-6.4 19.9-16.5S85.4 11 73.5 11h-18v33h18zM55.5 56.4h16.2L89.6 98h19.8L88.9 52.8C101.4 48.7 110.5 39.5 110.5 26c0-21-16.5-30-37-30h-35v102h17V56.4z" />
-                  </svg>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/revolut.jpg"
+                    alt="Revolut"
+                    className="h-6 w-auto object-contain rounded"
+                  />
                 </div>
                 <h5 className="mt-4 text-base font-bold text-text">Paiement instantané</h5>
                 <p className="mt-1.5 text-xs text-muted leading-relaxed">
