@@ -19,8 +19,8 @@ export default function ProductPanel() {
 
   return (
     <div className="flex flex-col gap-5">
-      {/* Titre image — MEZZ' 190 + ÉDITION LIMITÉE */}
-      <div style={{ marginBottom: "-8px" }}>
+      {/* Titre image — MEZZ' 190 + ÉDITION LIMITÉE (caché sur mobile, géré par le layout parent) */}
+      <div className="hidden lg:block" style={{ marginBottom: "-8px" }}>
         <img
           src="/title-mezz190.png"
           alt="MEZZ' 190 — Édition limitée"

@@ -19,6 +19,16 @@ export default function Home() {
         >
           <div className="mx-auto max-w-6xl w-full px-4 sm:px-6 flex-1 flex items-center py-6 sm:py-8">
             <div className="grid w-full gap-8 lg:grid-cols-[60%_1fr] lg:items-center lg:gap-12">
+              {/* Titre MEZZ' 190 mobile-only (affiché au-dessus du maillot) */}
+              <div className="block lg:hidden mx-auto w-full max-w-[280px] sm:max-w-[320px] mb-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/title-mezz190.png"
+                  alt="MEZZ' 190 — Édition limitée"
+                  className="w-full h-auto block mix-blend-lighten"
+                />
+              </div>
+
               {/* Maillot — occupe 55% sur desktop */}
               <JerseyViewer />
               {/* Infos produit */}
