@@ -91,39 +91,64 @@ export default function OrderForm() {
 
         {/* Bloc Règlement */}
         <div className="text-left">
-          <h4 className="text-sm font-bold uppercase tracking-wider text-text mb-4 text-center sm:text-left">
-            💳 COMMENT RÉGLER VOTRE COMMANDE ({formatEUR(total)}) :
+          <h4 className="text-xs font-black uppercase tracking-[0.2em] text-muted mb-4 flex items-center gap-2">
+            <span className="h-1.5 w-1.5 bg-red-bright" /> Mode de règlement ({formatEUR(total)})
           </h4>
 
           <div className="grid gap-4 sm:grid-cols-2">
             {/* Option A — Revolut */}
-            <div className="rounded-xl border border-line/40 bg-black/20 p-4 flex flex-col justify-between">
+            <div className="rounded-xl border border-line bg-black/40 p-5 flex flex-col justify-between hover:border-white/20 transition-all">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-red-bright">Option 1</span>
-                <h5 className="mt-1 text-sm font-semibold text-text">Lien instantané Revolut</h5>
-                <p className="mt-2 text-xs text-muted leading-relaxed">
-                  Payez de manière sécurisée en un clic via l&apos;application Revolut ou par carte.
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-red-bright bg-red-bright/10 px-2 py-0.5 rounded">Option 1</span>
+                  {/* Real Revolut Logo */}
+                  <svg className="text-white" width="60" height="14" viewBox="0 0 450 100" fill="currentColor">
+                    <path d="M38.5 0h17.1v97.9H38.5V0zM116.7 39.5c.3-11.4 8.7-18.7 20.3-18.7 11.2 0 19.3 7 19.9 17.5l.3 1.2h-40.5zm40.5 13.9c-.8 13-9.5 21.6-21.7 21.6-11.5 0-20.1-7.8-20.1-20.8 0-13 8.6-20.8 20.1-20.8 11.4 0 19.6 7.4 20.4 19.6v.4h17.1c-.9-21.3-16.7-33.9-37.5-33.9-22 0-37.3 15-37.3 34.7s15.3 34.7 37.3 34.7c20.5 0 36.4-12.2 37.5-33.9h-17.1c-.2 7.7-1.3 11-3.2 13.1zM286.9 23.2V8.4H270v71c0 10.9 6.8 17 18 17 4.1 0 7.8-.5 10.8-1.5V79.6c-2.3.8-4.9 1.1-7.4 1.1-4.7 0-7.3-2.6-7.3-7.7V23.2h17.9zM207.2 23.2l-21.8 55-21.8-55h-18.4l31.1 74.7H195l31.1-74.7h-18.9zM368.1 23.2h-17.1v40.3c0 9.8-5.3 14.5-12.7 14.5s-12.6-4.7-12.6-14.5V23.2h-17.1v41.6c0 19.2 11.9 29.5 29.7 29.5 9.7 0 17.5-4 21.1-10.2l1.6 8.8h17.1V23.2zM73.5 44c11.9 0 19.9-6.4 19.9-16.5S85.4 11 73.5 11h-18v33h18zM55.5 56.4h16.2L89.6 98h19.8L88.9 52.8C101.4 48.7 110.5 39.5 110.5 26c0-21-16.5-30-37-30h-35v102h17V56.4z" />
+                  </svg>
+                </div>
+                <h5 className="mt-4 text-base font-bold text-text">Paiement instantané</h5>
+                <p className="mt-1.5 text-xs text-muted leading-relaxed">
+                  Règlement direct sur Revolut. Tu peux payer avec ton compte ou par carte bancaire.
                 </p>
               </div>
               <a
                 href="https://revolut.me/lyamls9gv"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 block w-full rounded-lg bg-red-bright py-2 text-center text-xs font-bold uppercase tracking-widest text-white transition hover:bg-red"
+                className="mt-6 block w-full rounded-lg bg-red-bright py-2.5 text-center text-xs font-bold uppercase tracking-widest text-white transition hover:bg-red shadow-glow"
               >
                 Payer via Revolut
               </a>
             </div>
 
             {/* Option B — Virement */}
-            <div className="rounded-xl border border-line/40 bg-black/20 p-4 flex flex-col justify-between">
+            <div className="rounded-xl border border-line bg-black/40 p-5 flex flex-col justify-between hover:border-white/20 transition-all">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-red-bright">Option 2</span>
-                <h5 className="mt-1 text-sm font-semibold text-text">Virement Bancaire</h5>
-                <p className="mt-2 text-xs text-muted leading-relaxed">
-                  Effectuez un virement classique. L&apos;IBAN (RIB) est disponible ci-dessous.
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-red-bright bg-red-bright/10 px-2 py-0.5 rounded">Option 2</span>
+                  {/* Bank logos (Société Générale, BNP Paribas, SEPA) */}
+                  <div className="flex items-center gap-1.5 opacity-60">
+                    {/* Société Générale */}
+                    <svg width="14" height="14" viewBox="0 0 24 24" className="rounded-sm">
+                      <rect width="24" height="11" fill="#FF0000" />
+                      <rect y="13" width="24" height="11" fill="#000000" />
+                      <rect y="11" width="24" height="2" fill="#FFFFFF" />
+                    </svg>
+                    {/* BNP Paribas */}
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#00915a">
+                      <circle cx="12" cy="12" r="12" />
+                      <path d="M7 16l3-7 3 7M11 12h-3" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+                      <path d="M13 8c1.5 0 2 1.5 2 2.5s-.5 2.5-2 2.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+                    </svg>
+                    {/* SEPA text */}
+                    <span className="text-[9px] font-black tracking-tighter text-white border border-white/30 px-1 rounded-sm leading-none py-0.5">SEPA</span>
+                  </div>
+                </div>
+                <h5 className="mt-4 text-base font-bold text-text">Virement Bancaire</h5>
+                <p className="mt-1.5 text-xs text-muted leading-relaxed">
+                  Fais un virement classique. Copie l&apos;IBAN ci-dessous pour l&apos;ajouter à ton application.
                 </p>
-                <div className="mt-3 rounded bg-black/40 p-2 text-center font-mono text-xs text-text border border-line/20 select-all">
+                <div className="mt-3.5 rounded bg-black/60 p-2.5 text-center font-mono text-xs text-text border border-line/40 select-all tracking-wider font-bold">
                   FR76 2823 3000 0196 4198 4280 730
                 </div>
               </div>
@@ -131,15 +156,15 @@ export default function OrderForm() {
               <button
                 type="button"
                 onClick={handleCopyIBAN}
-                className="mt-4 w-full rounded-lg border border-line bg-surface py-2 text-xs font-bold uppercase tracking-widest text-text transition hover:border-text"
+                className="mt-6 w-full rounded-lg border border-line/60 bg-surface/50 py-2.5 text-xs font-bold uppercase tracking-widest text-text transition hover:border-text"
               >
                 {copied ? "IBAN Copié !" : "Copier l'IBAN"}
               </button>
             </div>
           </div>
 
-          <div className="mt-5 rounded-lg border border-red-bright/20 bg-red-bright/5 p-3 text-xs text-muted leading-relaxed">
-            <span className="font-bold text-red-bright">⚠️ IMPORTANT :</span> Veuillez indiquer impérativement la référence de votre commande (<span className="font-mono text-text font-bold">{submitted}</span>) dans le libellé de votre virement ou de votre paiement Revolut afin que nous puissions valider votre commande immédiatement.
+          <div className="mt-5 rounded-xl border border-red-bright/20 bg-red-bright/5 p-4 text-xs text-muted leading-relaxed">
+            <span className="font-bold text-red-bright">⚠️ INFO TRANSFERT :</span> Mets la référence de commande (<span className="font-mono text-text font-bold">{submitted}</span>) en libellé de ton virement ou Revolut pour qu&apos;on valide la production de ton maillot directement.
           </div>
         </div>
 
@@ -147,9 +172,9 @@ export default function OrderForm() {
           <button
             type="button"
             onClick={() => setSubmitted(null)}
-            className="rounded-lg border border-line/60 px-6 py-2.5 text-xs font-bold uppercase tracking-widest text-muted transition hover:border-text hover:text-text"
+            className="rounded-lg border border-line/40 px-6 py-2.5 text-xs font-bold uppercase tracking-widest text-muted transition hover:border-text hover:text-text"
           >
-            Retour à la boutique
+            Retour boutique
           </button>
         </div>
       </div>
