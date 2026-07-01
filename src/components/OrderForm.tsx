@@ -21,6 +21,12 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
+interface AddressSuggestion {
+  properties: {
+    label: string;
+  };
+}
+
 export default function OrderForm() {
   const { size, quantity, floquage } = useConfigurator();
   const total = PRODUCT.priceEUR * quantity;
@@ -31,15 +37,55 @@ export default function OrderForm() {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   const [copied, setCopied] = useState(false);
+  const [addressQuery, setAddressQuery] = useState("");
+  const [addressSuggestions, setAddressSuggestions] = useState<AddressSuggestion[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [loadingAddress, setLoadingAddress] = useState(false);
 
   const handleCopyIBAN = () => {
     navigator.clipboard.writeText("FR7628233000019641984280730");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Autocomplete search via government API
+  const handleAddressChange = async (val: string) => {
+    setAddressQuery(val);
+    setValue("address", val, { shouldValidate: true });
+
+    if (val.trim().length < 4) {
+      setAddressSuggestions([]);
+      setShowSuggestions(false);
+      return;
+    }
+
+    setLoadingAddress(true);
+    try {
+      const response = await fetch(
+        `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(val)}&limit=5`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setAddressSuggestions(data.features || []);
+        setShowSuggestions(true);
+      }
+    } catch (error) {
+      console.error("Error fetching address suggestions:", error);
+    } finally {
+      setLoadingAddress(false);
+    }
+  };
+
+  const selectAddress = (label: string) => {
+    setAddressQuery(label);
+    setValue("address", label, { shouldValidate: true });
+    setAddressSuggestions([]);
+    setShowSuggestions(false);
   };
 
   const onSubmit = async (values: FormValues) => {
@@ -66,6 +112,7 @@ export default function OrderForm() {
       const data = (await res.json()) as { ok: boolean; orderId?: string; error?: string };
       if (!res.ok || !data.ok) throw new Error(data.error ?? "Erreur serveur");
       setSubmitted(data.orderId ?? "OK");
+      setAddressQuery("");
       reset();
     } catch (err) {
       setServerError(err instanceof Error ? err.message : "Erreur inconnue");
@@ -202,15 +249,52 @@ export default function OrderForm() {
           <input {...register("phone")} type="tel" className={inputCls} autoComplete="tel" />
         </Field>
 
-        <Field label="Adresse complète" error={errors.address?.message}>
-          <textarea
-            {...register("address")}
-            rows={3}
-            className={`${inputCls} resize-none`}
-            autoComplete="street-address"
-            placeholder="Numéro, rue, code postal, ville"
-          />
-        </Field>
+        <div className="relative">
+          <Field label="Adresse complète" error={errors.address?.message}>
+            <div className="relative">
+              <input
+                type="text"
+                value={addressQuery}
+                onChange={(e) => handleAddressChange(e.target.value)}
+                onFocus={() => setShowSuggestions(addressSuggestions.length > 0)}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                className={`${inputCls} pr-10`}
+                autoComplete="off"
+                placeholder="Entrez votre numéro et nom de rue..."
+              />
+              {loadingAddress && (
+                <div className="absolute right-3 top-[38px] flex items-center justify-center">
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-red-bright border-t-transparent" />
+                </div>
+              )}
+            </div>
+            {/* Hidden register to hook into react-hook-form validation */}
+            <input type="hidden" {...register("address")} />
+          </Field>
+
+          {/* Autocomplete Suggestions Dropdown */}
+          {showSuggestions && addressSuggestions.length > 0 && (
+            <div className="absolute left-0 right-0 z-50 mt-1 max-h-56 overflow-y-auto rounded-lg border border-line bg-surface/95 p-1 shadow-2xl backdrop-blur-md">
+              {addressSuggestions.map((suggestion, index) => {
+                const label = suggestion.properties.label;
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => selectAddress(label)}
+                    className="flex w-full items-center gap-2 rounded-md px-3 py-2.5 text-left text-xs text-text hover:bg-white/10 transition-colors"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted shrink-0">
+                      <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    <span className="truncate">{label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
 
         {serverError && (
           <p className="text-sm text-red-bright">{serverError}</p>
