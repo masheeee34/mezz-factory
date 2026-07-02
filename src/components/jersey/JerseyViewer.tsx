@@ -68,7 +68,7 @@ export default function JerseyViewer() {
                 <div
                   style={{
                     position: "absolute",
-                    top: "22.5%",
+                    top: "25.8%",
                     left: "50%",
                     transform: "translate(-50%, -100%)",
                     textAlign: "center",
@@ -79,14 +79,15 @@ export default function JerseyViewer() {
                   <span
                     style={{
                       fontFamily: '"Road Rage", Impact, sans-serif',
-                      fontSize: "7.8cqh",
+                      fontSize: "7cqh",
                       textTransform: "uppercase",
                       letterSpacing: "0.07em",
-                      background: "linear-gradient(180deg, #f5f5f5 0%, #d4d4d4 50%, #a8a8a8 100%)",
+                      /* Match the baked "190" silver-grey, not white */
+                      background: "linear-gradient(180deg, #c4c4c6 0%, #9a9a9c 55%, #7c7c7e 100%)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                       backgroundClip: "text",
-                      filter: "drop-shadow(1px 3px 6px rgba(0,0,0,0.85))",
+                      filter: "drop-shadow(1px 2px 5px rgba(0,0,0,0.8))",
                       display: "block",
                     }}
                   >
