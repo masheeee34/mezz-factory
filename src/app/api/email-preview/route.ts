@@ -33,12 +33,17 @@ export async function GET(request: Request) {
   // Replace the email attachment CID with the local logo path so it renders in browser
   let previewHtml = html.replace("cid:mezzlogo", "/new-logo.png");
   
-  // Replace absolute Vercel fonts path with relative path for local dev preview to bypass CORS
-  previewHtml = previewHtml.replaceAll("https://mezz-factory.vercel.app/fonts/", "/fonts/");
+  // Robust regex to replace any absolute font URLs (http://localhost:3000/fonts/ or https://domain.com/fonts/)
+  // with relative paths (/fonts/) to bypass CORS in browser preview.
+  previewHtml = previewHtml.replace(/https?:\/\/[^\/]+\/fonts\//g, "/fonts/");
+  previewHtml = previewHtml.replace(/https?:\/\/[^\/]+\/\/fonts\//g, "/fonts/");
 
   return new Response(previewHtml, {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
+      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+      "Pragma": "no-cache",
+      "Expires": "0",
     },
   });
 }

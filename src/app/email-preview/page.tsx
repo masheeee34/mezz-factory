@@ -59,7 +59,7 @@ export default function EmailPreviewPage() {
 
           {/* Iframe displaying the raw template */}
           <iframe
-            src={`/api/email-preview?type=${activeTab === "customer" ? "customer" : "shop"}`}
+            src={`/api/email-preview?type=${activeTab === "customer" ? "customer" : "shop"}&t=${Date.now()}`}
             className="w-full flex-1 border-0 bg-[#08080a]"
             title="Email Template Render"
           />
