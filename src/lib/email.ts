@@ -16,7 +16,7 @@ const LOGO_CID = "mezzlogo";
  * If SMTP_HOST is missing, sending is skipped (the order still succeeds).
  */
 
-const SITE_URL = process.env.SITE_URL ?? "http://localhost:3005";
+const SITE_URL = process.env.SITE_URL ?? "https://mezz-factory.vercel.app";
 const SHOP_EMAIL = process.env.SHOP_EMAIL ?? "Mezzshop951@gmail.com";
 
 const euro = (n: number) =>
@@ -52,24 +52,39 @@ export function orderEmailHTML(orderId: string, p: OrderPayload, forShop: boolea
     ? `Nouvelle commande reçue de <strong style="color:#f4f4f5;">${esc(customer.firstName)} ${esc(customer.lastName)}</strong>.`
     : `Merci <strong style="color:#f4f4f5;">${esc(customer.firstName)}</strong> ! Ta commande est bien enregistrée. Voici le récapitulatif.`;
 
-  return `<!doctype html><html lang="fr"><body style="margin:0;padding:0;background:#08080a;">
+  return `<!doctype html><html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <style>
+      @font-face {
+        font-family: 'Another Danger';
+        src: url('${SITE_URL}/fonts/AnotherDanger.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+      }
+      .brand-font {
+        font-family: 'Another Danger', Impact, 'Arial Black', sans-serif !important;
+      }
+    </style>
+  </head>
+  <body style="margin:0;padding:0;background:#08080a;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#08080a;padding:24px 0;">
     <tr><td align="center">
       <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#0e0e10;border:1px solid #232327;border-radius:14px;overflow:hidden;font-family:Arial,Helvetica,sans-serif;">
-
-        <!-- Header (logo embedded via CID = real site font, shows everywhere) -->
+ 
+        <!-- Header (logo embedded via CID) -->
         <tr><td style="padding:24px 30px 18px;border-bottom:2px solid #e11d2a;">
           <img src="cid:${LOGO_CID}" alt="MEZZ' FACTORY" width="180" style="width:180px;height:auto;display:block;" />
         </td></tr>
-
+ 
         <!-- Intro -->
         <tr><td style="padding:28px 30px 6px;">
-          <p style="margin:0 0 4px;color:#e11d2a;font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:bold;">${forShop ? "Commande" : "Confirmation"}</p>
-          <h1 style="margin:0 0 10px;color:#ffffff;font-size:24px;">${forShop ? "🧾 Nouvelle commande" : "Ta commande est reçue"}</h1>
+          <p class="brand-font" style="margin:0 0 4px;color:#e11d2a;font-size:14px;letter-spacing:2px;text-transform:uppercase;font-family:'Another Danger', Impact, 'Arial Black', sans-serif;">${forShop ? "COMMANDE" : "CONFIRMATION"}</p>
+          <h1 class="brand-font" style="margin:0 0 12px;color:#ffffff;font-size:26px;font-family:'Another Danger', Impact, 'Arial Black', sans-serif;font-weight:normal;text-transform:uppercase;letter-spacing:0.5px;">${forShop ? "NOUVELLE COMMANDE" : "TA COMMANDE EST REÇUE"}</h1>
           <p style="margin:0;color:#b9b9bd;font-size:14px;line-height:1.6;">${intro}</p>
           <p style="margin:14px 0 0;color:#9a9aa0;font-size:13px;">N° de commande&nbsp;: <span style="color:#f4f4f5;font-family:monospace;">${orderId}</span></p>
         </td></tr>
-
+ 
         <!-- Order recap -->
         <tr><td style="padding:20px 30px 6px;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
@@ -80,27 +95,27 @@ export function orderEmailHTML(orderId: string, p: OrderPayload, forShop: boolea
             ${row("Prix unitaire", euro(order.unitPriceEUR))}
           </table>
         </td></tr>
-
+ 
         <!-- Total -->
         <tr><td style="padding:8px 30px 24px;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#141416;border-radius:10px;">
             <tr>
-              <td style="padding:16px 18px;color:#f4f4f5;font-size:15px;font-weight:bold;">TOTAL</td>
-              <td style="padding:16px 18px;color:#e11d2a;font-size:22px;font-weight:bold;text-align:right;">${euro(order.totalEUR)}</td>
+              <td class="brand-font" style="padding:16px 18px;color:#f4f4f5;font-size:18px;font-family:'Another Danger', Impact, 'Arial Black', sans-serif;letter-spacing:1px;">TOTAL</td>
+              <td class="brand-font" style="padding:16px 18px;color:#e11d2a;font-size:24px;font-weight:bold;text-align:right;font-family:'Another Danger', Impact, 'Arial Black', sans-serif;">${euro(order.totalEUR)}</td>
             </tr>
           </table>
         </td></tr>
-
+ 
         <!-- Delivery -->
         <tr><td style="padding:0 30px 24px;">
-          <p style="margin:0 0 8px;color:#9a9aa0;font-size:12px;letter-spacing:1px;text-transform:uppercase;font-weight:bold;">Livraison</p>
+          <p class="brand-font" style="margin:0 0 8px;color:#9a9aa0;font-size:14px;letter-spacing:1px;text-transform:uppercase;font-family:'Another Danger', Impact, 'Arial Black', sans-serif;">Livraison</p>
           <p style="margin:0;color:#e8e8ea;font-size:14px;line-height:1.7;">
             ${esc(customer.firstName)} ${esc(customer.lastName)}<br/>
             ${esc(customer.address).replace(/\n/g, "<br/>")}<br/>
             ${esc(customer.phone)} · ${esc(customer.email)}
           </p>
         </td></tr>
-
+ 
         <!-- Footer -->
         <tr><td style="padding:20px 30px 26px;border-top:1px solid #232327;">
           <p style="margin:0;color:#6f6f74;font-size:12px;line-height:1.6;">
@@ -108,7 +123,7 @@ export function orderEmailHTML(orderId: string, p: OrderPayload, forShop: boolea
             <a href="mailto:${SHOP_EMAIL}" style="color:#9a9aa0;">${SHOP_EMAIL}</a> · 06 02 52 33 23
           </p>
         </td></tr>
-
+ 
       </table>
     </td></tr>
   </table>
