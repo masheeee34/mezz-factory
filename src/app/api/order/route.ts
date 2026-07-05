@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { sendOrderEmails } from "@/lib/email";
 
 const orderSchema = z.object({
   customer: z.object({
@@ -42,11 +43,11 @@ export async function POST(request: Request) {
   const order = parsed.data;
   const orderId = `MZ-${Date.now().toString(36).toUpperCase()}`;
 
-  // TODO (production): brancher l'envoi réel ici.
-  //  - Email   : Resend / Nodemailer vers Mezzshop951@gmail.com
-  //  - Stockage: base de données (Postgres, Supabase, Notion…)
-  //  - Paiement: Stripe Checkout (créer la session et renvoyer l'URL)
   console.log("[order]", orderId, JSON.stringify(order));
 
-  return NextResponse.json({ ok: true, orderId });
+  // Send the branded confirmation email (customer + shop). Never blocks the
+  // order: if email is down/unconfigured, the order still goes through.
+  const mail = await sendOrderEmails(orderId, order);
+
+  return NextResponse.json({ ok: true, orderId, emailSent: mail.sent });
 }

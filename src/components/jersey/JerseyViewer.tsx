@@ -19,6 +19,13 @@ export default function JerseyViewer() {
 
   const activeIndex = TABS.findIndex(t => t.id === activeTab);
 
+  // Custom name for the perso (verso) view — auto-sized so long names still fit.
+  const floqName = (deferredFloquage.name ?? "").trim().toUpperCase();
+  const nameFontSize =
+    floqName.length <= 4 ? 152 :
+    floqName.length <= 6 ? 136 :
+    floqName.length <= 9 ? 114 : 96;
+
   return (
     <div className="flex flex-col gap-4 w-full">
       {/* ── Image area ── */}
@@ -48,54 +55,51 @@ export default function JerseyViewer() {
           />
         )}
 
-        {/* 3. PERSO — CSS overlay */}
+        {/* 3. PERSO — client.png + SVG name overlay (pixel-exact on the 2304×1844 art) */}
         {activeTab === "verso" && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div 
-              className="relative w-full h-auto sm:h-full sm:w-auto aspect-[2304/1844]" 
-              style={{ 
-                containerType: "size"
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/jersey/client.png"
-                alt="Template maillot"
-                className="w-full h-auto sm:h-full sm:w-auto object-contain"
-                style={{ filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.9))" }}
-              />
-              {deferredFloquage.name?.trim() && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "25.8%",
-                    left: "50%",
-                    transform: "translate(-50%, -100%)",
-                    textAlign: "center",
-                    whiteSpace: "nowrap",
-                    pointerEvents: "none",
-                  }}
+          <div className="relative h-full w-full">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/jersey/client.png"
+              alt="Template maillot"
+              className="absolute inset-0 h-full w-full object-contain"
+              style={{ filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.9))" }}
+            />
+            {floqName && (
+              <svg
+                viewBox="0 0 2304 1844"
+                preserveAspectRatio="xMidYMid meet"
+                className="absolute inset-0 h-full w-full"
+                style={{ pointerEvents: "none" }}
+              >
+                <defs>
+                  {/* silver matched to the baked "190" grey */}
+                  <linearGradient id="floqSilver" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#b2b2b4" />
+                    <stop offset="50%" stopColor="#969698" />
+                    <stop offset="100%" stopColor="#7c7c7e" />
+                  </linearGradient>
+                  {/* Just a soft drop shadow — Another Danger is already brushy,
+                      so NO displacement (it warped the letters and looked bad). */}
+                  <filter id="floqGrunge" x="-15%" y="-35%" width="130%" height="170%">
+                    <feDropShadow dx="2" dy="4" stdDeviation="4" floodColor="#000000" floodOpacity="0.65" />
+                  </filter>
+                </defs>
+                {/* baseline y≈482 sits just above the baked red underline (y≈503) */}
+                <text
+                  x="1152"
+                  y="482"
+                  textAnchor="middle"
+                  fontFamily='"Another Danger", "Road Rage", Impact, sans-serif'
+                  fontSize={nameFontSize}
+                  letterSpacing="4"
+                  fill="url(#floqSilver)"
+                  filter="url(#floqGrunge)"
                 >
-                  <span
-                    style={{
-                      fontFamily: '"Road Rage", Impact, sans-serif',
-                      fontSize: "7cqh",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.07em",
-                      /* Match the baked "190" silver-grey, not white */
-                      background: "linear-gradient(180deg, #c4c4c6 0%, #9a9a9c 55%, #7c7c7e 100%)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                      backgroundClip: "text",
-                      filter: "drop-shadow(1px 2px 5px rgba(0,0,0,0.8))",
-                      display: "block",
-                    }}
-                  >
-                    {deferredFloquage.name.trim().toUpperCase()}
-                  </span>
-                </div>
-              )}
-            </div>
+                  {floqName}
+                </text>
+              </svg>
+            )}
           </div>
         )}
 
