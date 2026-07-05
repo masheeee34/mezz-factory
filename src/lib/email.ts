@@ -101,7 +101,7 @@ export function orderEmailHTML(orderId: string, p: OrderPayload, forShop: boolea
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#141416;border-radius:10px;">
             <tr>
               <td class="brand-font" style="padding:16px 18px;color:#f4f4f5;font-size:18px;font-family:'Another Danger', Impact, 'Arial Black', sans-serif;letter-spacing:1px;">TOTAL</td>
-              <td class="brand-font" style="padding:16px 18px;color:#e11d2a;font-size:24px;font-weight:bold;text-align:right;font-family:'Another Danger', Impact, 'Arial Black', sans-serif;">${euro(order.totalEUR)}</td>
+              <td style="padding:16px 18px;color:#e11d2a;font-size:22px;font-weight:bold;text-align:right;font-family:Arial, Helvetica, sans-serif;">${euro(order.totalEUR)}</td>
             </tr>
           </table>
         </td></tr>
