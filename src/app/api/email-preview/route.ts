@@ -31,7 +31,10 @@ export async function GET(request: Request) {
   const html = orderEmailHTML("MZ-DEMO123", mockPayload, forShop);
   
   // Replace the email attachment CID with the local logo path so it renders in browser
-  const previewHtml = html.replace("cid:mezzlogo", "/new-logo.png");
+  let previewHtml = html.replace("cid:mezzlogo", "/new-logo.png");
+  
+  // Replace absolute Vercel fonts path with relative path for local dev preview to bypass CORS
+  previewHtml = previewHtml.replaceAll("https://mezz-factory.vercel.app/fonts/", "/fonts/");
 
   return new Response(previewHtml, {
     headers: {
