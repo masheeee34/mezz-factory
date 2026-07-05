@@ -57,13 +57,13 @@ export function orderEmailHTML(orderId: string, p: OrderPayload, forShop: boolea
     <meta charset="utf-8">
     <style>
       @font-face {
-        font-family: 'Road Rage';
-        src: url('${SITE_URL}/fonts/RoadRage.otf') format('opentype');
+        font-family: 'Another Danger';
+        src: local('Another Danger'), url('${SITE_URL}/fonts/AnotherDanger.otf') format('opentype');
         font-weight: normal;
         font-style: normal;
       }
       .brand-font {
-        font-family: 'Road Rage', Impact, 'Arial Black', sans-serif !important;
+        font-family: 'Another Danger', Impact, 'Arial Black', sans-serif !important;
       }
     </style>
   </head>
@@ -79,8 +79,8 @@ export function orderEmailHTML(orderId: string, p: OrderPayload, forShop: boolea
  
         <!-- Intro -->
         <tr><td style="padding:28px 30px 6px;">
-          <p class="brand-font" style="margin:0 0 4px;color:#e11d2a;font-size:14px;letter-spacing:2px;text-transform:uppercase;font-family:'Road Rage', Impact, 'Arial Black', sans-serif;">${forShop ? "COMMANDE" : "CONFIRMATION"}</p>
-          <h1 class="brand-font" style="margin:0 0 12px;color:#ffffff;font-size:26px;font-family:'Road Rage', Impact, 'Arial Black', sans-serif;font-weight:normal;text-transform:uppercase;letter-spacing:0.5px;">${forShop ? "NOUVELLE COMMANDE" : "TA COMMANDE EST REÇUE"}</h1>
+          <p class="brand-font" style="margin:0 0 4px;color:#e11d2a;font-size:14px;letter-spacing:2px;text-transform:uppercase;font-family:'Another Danger', Impact, 'Arial Black', sans-serif;">${forShop ? "COMMANDE" : "CONFIRMATION"}</p>
+          <h1 class="brand-font" style="margin:0 0 12px;color:#ffffff;font-size:26px;font-family:'Another Danger', Impact, 'Arial Black', sans-serif;font-weight:normal;text-transform:uppercase;letter-spacing:0.5px;">${forShop ? "NOUVELLE COMMANDE" : "TA COMMANDE EST REÇUE"}</h1>
           <p style="margin:0;color:#b9b9bd;font-size:14px;line-height:1.6;">${intro}</p>
           <p style="margin:14px 0 0;color:#9a9aa0;font-size:13px;">N° de commande&nbsp;: <span style="color:#f4f4f5;font-family:monospace;">${orderId}</span></p>
         </td></tr>
@@ -100,15 +100,15 @@ export function orderEmailHTML(orderId: string, p: OrderPayload, forShop: boolea
         <tr><td style="padding:8px 30px 24px;">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#141416;border-radius:10px;">
             <tr>
-              <td class="brand-font" style="padding:16px 18px;color:#f4f4f5;font-size:18px;font-family:'Road Rage', Impact, 'Arial Black', sans-serif;letter-spacing:1px;">TOTAL</td>
-              <td class="brand-font" style="padding:16px 18px;color:#e11d2a;font-size:24px;font-weight:bold;text-align:right;font-family:'Road Rage', Impact, 'Arial Black', sans-serif;">${euro(order.totalEUR)}</td>
+              <td class="brand-font" style="padding:16px 18px;color:#f4f4f5;font-size:18px;font-family:'Another Danger', Impact, 'Arial Black', sans-serif;letter-spacing:1px;">TOTAL</td>
+              <td class="brand-font" style="padding:16px 18px;color:#e11d2a;font-size:24px;font-weight:bold;text-align:right;font-family:'Another Danger', Impact, 'Arial Black', sans-serif;">${euro(order.totalEUR)}</td>
             </tr>
           </table>
         </td></tr>
  
         <!-- Delivery -->
         <tr><td style="padding:0 30px 24px;">
-          <p class="brand-font" style="margin:0 0 8px;color:#9a9aa0;font-size:14px;letter-spacing:1px;text-transform:uppercase;font-family:'Road Rage', Impact, 'Arial Black', sans-serif;">Livraison</p>
+          <p class="brand-font" style="margin:0 0 8px;color:#9a9aa0;font-size:14px;letter-spacing:1px;text-transform:uppercase;font-family:'Another Danger', Impact, 'Arial Black', sans-serif;">Livraison</p>
           <p style="margin:0;color:#e8e8ea;font-size:14px;line-height:1.7;">
             ${esc(customer.firstName)} ${esc(customer.lastName)}<br/>
             ${esc(customer.address).replace(/\n/g, "<br/>")}<br/>
