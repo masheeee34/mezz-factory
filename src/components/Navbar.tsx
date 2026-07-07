@@ -88,7 +88,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Panel */}
       {mobileMenuOpen && (
-        <div className="fixed inset-x-0 top-[72px] bottom-0 z-40 bg-[#0a0a0b]/98 backdrop-blur-lg md:hidden border-t border-red-bright/20 flex flex-col justify-between py-12 px-6 animate-fadeIn">
+        <div className="fixed inset-x-0 top-[72px] bottom-0 z-40 bg-black md:hidden border-t border-red-bright/20 flex flex-col justify-between py-12 px-6 animate-fadeIn">
           <ul className="flex flex-col gap-6 text-center pt-8">
             {LINKS.map((l) => (
               <li key={l.href}>
