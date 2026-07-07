@@ -9,7 +9,7 @@ export default function SizeSelector() {
 
   return (
     <div>
-      <span className="mb-2 block text-center text-xs uppercase tracking-wider text-muted font-bold">
+      <span className="mb-2 block text-center text-xs uppercase tracking-wider text-text font-bold">
         TAILLE
       </span>
       <div className="flex flex-wrap justify-center gap-2">

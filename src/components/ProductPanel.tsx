@@ -41,14 +41,14 @@ export default function ProductPanel() {
       </p>
 
       {/* Description */}
-      <p className="max-w-md text-sm leading-relaxed" style={{ color: "#c4c4c8" }}>
+      <p className="max-w-md text-sm leading-relaxed text-text">
         {PRODUCT.description}
       </p>
 
       {/* Bullets */}
       <ul className="space-y-1.5">
         {PRODUCT.bullets.map((b) => (
-          <li key={b} className="flex items-center gap-2 text-sm" style={{ color: "#e8e8ea" }}>
+          <li key={b} className="flex items-center gap-2 text-sm text-text">
             <span className="h-1.5 w-1.5 flex-shrink-0 bg-red-bright" />
             {b}
           </li>
@@ -79,7 +79,7 @@ export default function ProductPanel() {
       </div>
 
       {/* Livraison */}
-      <p className="flex items-center gap-2 text-xs uppercase tracking-wider text-muted font-bold">
+      <p className="flex items-center gap-2 text-xs uppercase tracking-wider text-text font-bold">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="text-red-bright flex-shrink-0">
           <path d="M3 7h11v8H3zM14 10h4l3 3v2h-7z" strokeLinejoin="round" />
           <circle cx="7" cy="17" r="1.6" />

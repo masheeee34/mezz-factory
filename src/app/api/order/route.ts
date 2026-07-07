@@ -49,13 +49,13 @@ export async function POST(request: Request) {
     const mx = await dns.resolveMx(emailDomain);
     if (!mx || mx.length === 0) {
       return NextResponse.json(
-        { ok: false, error: "Le domaine de ton adresse e-mail n'existe pas ou ne peut pas recevoir d'e-mails (vérifie s'il y a une faute de frappe)." },
+        { ok: false, error: "L'adresse e-mail n'existe pas." },
         { status: 400 }
       );
     }
   } catch (err) {
     return NextResponse.json(
-      { ok: false, error: "Le domaine de ton adresse e-mail n'existe pas ou ne peut pas recevoir d'e-mails (vérifie s'il y a une faute de frappe)." },
+      { ok: false, error: "L'adresse e-mail n'existe pas." },
       { status: 400 }
     );
   }

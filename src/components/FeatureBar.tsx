@@ -61,7 +61,7 @@ export default function FeatureBar() {
               <p className="text-sm font-bold uppercase tracking-wider text-text">
                 {f.title}
               </p>
-              <p className="text-xs text-muted mt-0.5">{f.desc}</p>
+              <p className="text-xs text-text mt-0.5">{f.desc}</p>
             </div>
           </div>
         ))}
