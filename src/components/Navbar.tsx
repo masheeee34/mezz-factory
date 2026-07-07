@@ -62,9 +62,6 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-4">
-          <a href="/commande" aria-label="Mon compte" className="text-text hover:text-red-bright transition-colors" onClick={() => setMobileMenuOpen(false)}>
-            <UserIcon />
-          </a>
           <a
             href="/commande"
             aria-label="Panier"
@@ -114,14 +111,6 @@ export default function Navbar() {
   );
 }
 
-function UserIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7">
-      <circle cx="12" cy="8" r="4" />
-      <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" strokeLinecap="round" />
-    </svg>
-  );
-}
 
 function CartIcon() {
   return (
