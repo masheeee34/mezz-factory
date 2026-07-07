@@ -61,7 +61,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4" suppressHydrationWarning>
           <a
             href="/commande"
             aria-label="Panier"
