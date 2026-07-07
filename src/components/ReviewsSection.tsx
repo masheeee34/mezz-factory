@@ -35,13 +35,13 @@ export default function ReviewsSection() {
                 <span className="text-xs font-black uppercase tracking-wider text-text">
                   {r.name}
                 </span>
-                <span className="text-[10px] text-muted uppercase tracking-wider">
+                <span className="text-[10px] text-text/80 uppercase tracking-wider">
                   {r.date}
                 </span>
               </div>
               
               {r.customization && (
-                <p className="text-[10px] text-muted uppercase tracking-wider font-bold">
+                <p className="text-[10px] text-text/80 uppercase tracking-wider font-bold">
                   {r.customization}
                 </p>
               )}

@@ -53,7 +53,7 @@ export default function Navbar() {
             <li key={l.href}>
               <a
                 href={getHref(l.href)}
-                className="text-sm font-medium uppercase tracking-wide text-muted transition-colors hover:text-text"
+                className="text-sm font-medium uppercase tracking-wide text-text transition-colors hover:text-red-bright"
               >
                 {l.label}
               </a>
@@ -62,13 +62,13 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-4">
-          <a href="/commande" aria-label="Mon compte" className="text-muted hover:text-text" onClick={() => setMobileMenuOpen(false)}>
+          <a href="/commande" aria-label="Mon compte" className="text-text hover:text-red-bright transition-colors" onClick={() => setMobileMenuOpen(false)}>
             <UserIcon />
           </a>
           <a
             href="/commande"
             aria-label="Panier"
-            className="relative text-muted hover:text-text"
+            className="relative text-text hover:text-red-bright transition-colors"
             onClick={() => setMobileMenuOpen(false)}
           >
             <CartIcon />
@@ -81,7 +81,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-muted hover:text-text md:hidden focus:outline-none p-1"
+            className="text-text hover:text-red-bright md:hidden focus:outline-none p-1 transition-colors"
             aria-label="Menu"
           >
             {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
@@ -91,14 +91,14 @@ export default function Navbar() {
 
       {/* Mobile Menu Panel */}
       {mobileMenuOpen && (
-        <div className="fixed inset-x-0 top-[72px] bottom-0 z-40 bg-bg/95 backdrop-blur-lg md:hidden border-t border-red-bright/20 flex flex-col justify-between py-12 px-6 animate-fadeIn">
+        <div className="fixed inset-x-0 top-[72px] bottom-0 z-40 bg-[#0a0a0b]/98 backdrop-blur-lg md:hidden border-t border-red-bright/20 flex flex-col justify-between py-12 px-6 animate-fadeIn">
           <ul className="flex flex-col gap-6 text-center pt-8">
             {LINKS.map((l) => (
               <li key={l.href}>
                 <a
                   href={getHref(l.href)}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-xl font-bold uppercase tracking-widest text-muted hover:text-text block py-2.5 transition"
+                  className="text-xl font-bold uppercase tracking-widest text-text hover:text-red-bright block py-2.5 transition"
                 >
                   {l.label}
                 </a>
@@ -106,7 +106,7 @@ export default function Navbar() {
             ))}
           </ul>
           <div className="border-t border-line/35 pt-6 text-center space-y-4">
-            <p className="text-[10px] text-muted uppercase tracking-[0.2em]">Mezz Factory — Streetwear</p>
+            <p className="text-[10px] text-text uppercase tracking-[0.2em]">Mezz Factory — Streetwear</p>
           </div>
         </div>
       )}

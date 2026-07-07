@@ -30,7 +30,7 @@ export default function CommandePage() {
             >
               Finaliser la commande
             </h1>
-            <p className="mt-2 text-sm text-muted">
+            <p className="mt-2 text-sm text-text">
               Renseigne tes informations de livraison pour finaliser l&apos;achat de ton maillot MEZZ&apos; 190.
             </p>
           </div>
@@ -38,8 +38,8 @@ export default function CommandePage() {
           {quantity === 0 ? (
             <div className="rounded-2xl border border-line bg-surface/30 p-12 text-center backdrop-blur-sm max-w-xl mx-auto">
               <h2 className="headline text-2xl text-text mb-4">Ton panier est vide</h2>
-              <p className="text-sm text-muted mb-8">
-                Personnalise ton maillot MEZZ&apos; 190 avant de passer commande.
+              <p className="text-sm text-text mb-8">
+                Choisis ton maillot MEZZ&apos; 190 avant de passer commande.
               </p>
               <Link
                 href="/"
@@ -49,7 +49,7 @@ export default function CommandePage() {
                   letterSpacing: "0.03em",
                 }}
               >
-                Personnaliser mon maillot
+                Choisir mon maillot
               </Link>
             </div>
           ) : (
