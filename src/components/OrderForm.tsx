@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -33,6 +33,12 @@ export default function OrderForm() {
   const total = PRODUCT.priceEUR * quantity;
   const [submitted, setSubmitted] = useState<string | null>(null);
   const [serverError, setServerError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (submitted) {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+  }, [submitted]);
 
   const {
     register,
