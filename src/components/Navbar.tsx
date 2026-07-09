@@ -34,19 +34,21 @@ export default function Navbar() {
           : "border-red-bright/40 bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-4 sm:px-6">
-        <a href={isHome ? "#accueil" : "/"} className="block" onClick={() => setMobileMenuOpen(false)}>
-          <img
-            src="/new-logo.png"
-            alt="Mezz'"
-            style={{
-              height: "76px",
-              width: "auto",
-              display: "block",
-              mixBlendMode: "lighten",
-            }}
-          />
-        </a>
+      <nav className="relative mx-auto flex h-[72px] max-w-6xl items-center justify-between px-4 sm:px-6">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          <a href={isHome ? "#accueil" : "/"} className="block" onClick={() => setMobileMenuOpen(false)}>
+            <img
+              src="/new-logo.png"
+              alt="Mezz'"
+              style={{
+                height: "76px",
+                width: "auto",
+                display: "block",
+                mixBlendMode: "lighten",
+              }}
+            />
+          </a>
+        </div>
 
         <ul className="hidden items-center gap-8 md:flex">
           {LINKS.map((l) => (

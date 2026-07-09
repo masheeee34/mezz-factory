@@ -144,22 +144,23 @@ export async function sendOrderEmails(
     const from = `"Mezz Factory" <${process.env.SMTP_USER}>`;
     const attachments = [{ filename: "logo.png", path: LOGO_PATH, cid: LOGO_CID }];
 
-    await t.sendMail({
-      from,
-      to: payload.customer.email,
-      subject: `Confirmation de commande ${orderId} — Mezz Factory`,
-      html: orderEmailHTML(orderId, payload, false),
-      attachments,
-    });
-
-    await t.sendMail({
-      from,
-      to: SHOP_EMAIL,
-      replyTo: payload.customer.email,
-      subject: `🧾 Nouvelle commande ${orderId} — ${payload.customer.firstName} ${payload.customer.lastName}`,
-      html: orderEmailHTML(orderId, payload, true),
-      attachments,
-    });
+    await Promise.all([
+      t.sendMail({
+        from,
+        to: payload.customer.email,
+        subject: `Confirmation de commande ${orderId} — Mezz Factory`,
+        html: orderEmailHTML(orderId, payload, false),
+        attachments,
+      }),
+      t.sendMail({
+        from,
+        to: SHOP_EMAIL,
+        replyTo: payload.customer.email,
+        subject: `🧾 Nouvelle commande ${orderId} — ${payload.customer.firstName} ${payload.customer.lastName}`,
+        html: orderEmailHTML(orderId, payload, true),
+        attachments,
+      })
+    ]);
 
     return { sent: true };
   } catch (err) {
