@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import OrderForm from "@/components/OrderForm";
 import Footer from "@/components/Footer";
@@ -8,6 +9,10 @@ import Link from "next/link";
 
 export default function CommandePage() {
   const { quantity } = useConfigurator();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
